@@ -1,0 +1,24 @@
+{
+  "name": "vaughn-http-api-assignment",
+  "version": "1.0.0",
+  "description": "",
+  "main": "./src/server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/saint-justin/http-api-assignment.git"
+  },
+  "author": "Justin Vaughn",
+  "license": "UNLICENSED",
+  "bugs": {
+    "url": "https://github.com/saint-justin/http-api-assignment/issues"
+  },
+  "homepage": "https://github.com/saint-justin/http-api-assignment#readme",
+  "devDependencies": {
+    "eslint": "^7.9.0",
+    "eslint-config-airbnb": "^18.2.0",
+    "eslint-plugin-import": "^2.22.0"
+  }
+}
