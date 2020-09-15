@@ -1,5 +1,7 @@
 const http = require('http');
 const url = require('url');
+const query = require('querystring');
+
 const htmlHandler = require('./htmlHandler.js');
 const jsonHandler = require('./jsonHandler.js');
 
@@ -18,15 +20,19 @@ const urlStruct = {
 
 const onRequest = (req, res) => {
   const parsedUrl = url.parse(req.url);
+  const params = query.parse(parsedUrl.query);
+  const type = req.headers.accept.split(',')[0] || 'application/json';
+  console.log(`TYPE: ${type}`);
 
   console.dir(parsedUrl.pathname);
   console.dir(req.method);
 
-  if (urlStruct[parsedUrl.pathname]) {
-    urlStruct[parsedUrl.pathname](req, res);
+  if (urlStruct[parsedUrl.pathname] && type) {
+    urlStruct[parsedUrl.pathname](req, res, params, type);
+  } else if (urlStruct[parsedUrl.pathname]) {
+    urlStruct[parsedUrl.pathname](req, res, params);
   } else {
     urlStruct.notFound(req, res);
-    // console.log('Resource not found');
   }
 };
 

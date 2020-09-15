@@ -6,7 +6,59 @@
   
   <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.34/browser.min.js"></script>
   <script type="text/babel">
+  // Getting ref to where I need to plop data
+  const content = document.querySelector('#content');
 
+  // Fxn for clearing all children from a given node
+  const clearChildren = (node) => {
+    while(node.children.length > 0){
+      node.removeChild(node.lastElementChild);
+    }
+  }
+
+  // Formats the type to remove forward slash and add a capital
+  const formatType = (str) => {
+    let type = page.value.split("");
+    type.shift();
+    type[0] = type[0].toUpperCase();
+    return type.join('');
+  }
+
+  // SendAJAX function that handles button presses
+  const sendAjax = (url, type) => {
+    let xhr = new XMLHttpRequest();
+    xhr.open('GET', url);
+    xhr.setRequestHeader('Accept', type);
+    xhr.onload = () => {
+      const type = xhr.getResponseHeader('content-type');
+
+      const h1 = document.createElement('h1');
+      const p = document.createElement('p');
+
+      const obj = JSON.parse(xhr.response);
+
+      if (type === 'text/xml') {
+        let text = `<response><message>${obj.message}</message><id>${obj.id}</id></response>`
+        let parser = new DOMParser();
+        console.log(parser.parseFromString(text, 'text/xml'));
+      } else if (type === 'application/json'){
+        h1.textContent = formatType();
+        p.textContent = `Message: ${obj.message}`;
+        clearChildren(content);
+        content.appendChild(h1);
+        content.appendChild(p);
+        console.log(obj);
+      }
+    }
+    xhr.send();
+  }
+
+    const init = () => {
+      send.onclick = () => {
+        sendAjax(page.value, type.value);
+      }
+    };
+    window.onload = init;
   </script>
 </head>
 <body>
