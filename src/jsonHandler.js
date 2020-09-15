@@ -1,6 +1,5 @@
 const respondJSON = (req, res, status, object, type) => {
   const headerType = type || 'application/json';
-  console.log(headerType);
   res.writeHead(status, { 'Content-Type': headerType });
   res.write(JSON.stringify(object));
   res.end();
@@ -21,7 +20,7 @@ const badRequest = (req, res, params, type) => {
   };
 
   if (params.valid === 'yes') obj.message = 'This request has the required params';
-  console.log(`PARAMS VALID? ${params.valid}`);
+  // console.log(`PARAMS VALID? ${params.valid}`);
 
   respondJSON(req, res, 400, obj, type);
 };

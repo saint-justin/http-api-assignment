@@ -22,10 +22,9 @@ const onRequest = (req, res) => {
   const parsedUrl = url.parse(req.url);
   const params = query.parse(parsedUrl.query);
   const type = req.headers.accept.split(',')[0] || 'application/json';
-  console.log(`TYPE: ${type}`);
-
-  console.dir(parsedUrl.pathname);
-  console.dir(req.method);
+  // console.log(`TYPE: ${type}`);
+  // console.dir(parsedUrl.pathname);
+  // console.dir(req.method);
 
   if (urlStruct[parsedUrl.pathname] && type) {
     urlStruct[parsedUrl.pathname](req, res, params, type);
@@ -37,4 +36,4 @@ const onRequest = (req, res) => {
 };
 
 http.createServer(onRequest).listen(port);
-console.log(`Listening on 127.0.0.1:${port}`);
+// console.log(`Listening on 127.0.0.1:${port}`);
